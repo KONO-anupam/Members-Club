@@ -1,0 +1,37 @@
+CREATE TABLE IF NOT EXISTS user_roles (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(20) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS users (
+  id VARCHAR(21) PRIMARY KEY NOT NULL 
+  role_id INTEGER REFERENCES user_roles(id) NOT NULL
+  first_name VARCHAR(50) NOT NULL,
+  last_name VARCHAR(50) NOT NULL,
+  username VARCHAR(20) UNIQUE NOT NULL,
+  email VARCHAR(255) UNIQUE NOT NULL,
+  password VARCHAR(255) NOT NUll,
+  deactivated BOOLEAN NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS posts (
+  id VARCHAR(21) PRIMARY KEY NOT NULL,
+  user_id VARCHAR(21) REFERENCES users(id),
+  title VARCHAR(100) NOT NULL,
+  message TEXT NOT NULL
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- CREATE TABLE IF NOT EXISTS "user_sessions" (
+--   "sid" varchar NOT NULL COLLATE "default",
+--   "sess" json NOT NULL,
+--   "expire" timestamp(6) NOT NULL
+-- )
+-- WITH (OIDS=FALSE);
+
+-- ALTER TABLE "user_sessions" ADD CONSTRAINT "session_pkey" PRIMARY KEY ("sid") NOT DEFERRABLE INITIALLY IMMEDIATE;
+
+-- CREATE INDEX "IDX_session_expire" ON "session" ("expire");
