@@ -1,15 +1,18 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
+const User = require('../models/userModel');
+const bcrypt = require('bcrypt');
 
 function initialize() {
-  passport.use(
-    new LocalStrategy(async (username, password, done) => {
-      try {
-        const { rows } = await pool.query('SELECT * FROM users WHERE username = $1', [username]);
-        const user = rows[0];
 
+  const customFields = { usernameField: 'nameOrEmail' };
+  passport.use(
+    new LocalStrategy(customFields, async (nameOrEmail, password, done) => {
+      try {
+        // console.log(nameOrEmail, password);
+        const  user = !nameOrEmail.includes('@') ?  await User.findByUsername(nameOrEmail) : await User.findByEmail(nameOrEmail);
         if (!user) {
-          return done(null, false, { message: 'Incorrect username' });
+          return done(null, false, { message: 'Incorrect username or email' });
         }
         const match = await bcrypt.compare(password, user.password);
         if (!match) {
@@ -26,11 +29,9 @@ function initialize() {
     done(null, user.id);
   });
 
-
   passport.deserializeUser(async (id, done) => {
     try {
-      const { rows } = await pool.query('SELECT * FROM users WHERE id = $1', [id]);
-      const user = rows[0];
+      const user = User.findById(id);
       // user = { id: 1, username: "klauspoppe", password: "monster" }
       done(null, user);
     } catch (error) {
