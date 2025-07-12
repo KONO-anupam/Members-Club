@@ -2,8 +2,9 @@ const express = require('express');
 const path = require('path');
 const session = require('express-session');
 const PgSession = require('connect-pg-simple')(session);
-const { pool, pgConnection } = require('./database/index');
+const { pool } = require('./database/index');
 const passport = require('passport');
+const flash = require('connect-flash');
 
 /* LOAD ENVIRONMENT VARIABLES */
 require('dotenv').config();
@@ -16,13 +17,12 @@ const PORT = process.env.PORT || 3001;
 app.disable('x-powered-by');
 
 /* SETTING VIEWS */
-app.set('views', 'ejs');
+app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 /* BUILT-IN MIDDLEWARES */
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
-
 
 /* DATABASE AND SESSIONS MIDDLEWARES */
 const secret = process.env.SECRETS;
@@ -30,34 +30,56 @@ app.use(
   session({
     store: new PgSession({
       pool,
-      tableName: 'user_sessions'
+      tableName: 'user_sessions',
+      createTableIfMissing: true
     }),
+    name: 'con_mc',
     secret,
     resave: false,
     saveUninitialized: false,
     cookie: {
-      maxAge: 5000
-      // maxAge: 1000 * 60 * 60 * 24
+      // maxAge: 5000 /* 5 seconds expiration */
+      maxAge: 1000 * 60 * 60 * 24 /* 24 hours expiration */
     }
   })
 );
+/* SETTING FLASH MIDDLEWARE  */
+const flashMessageMiddleware = require('./middlewares/flashMessageMiddleware');
+app.use(flash());
+app.use(flashMessageMiddleware);
 
+/* PASSPORT MIDDLEWARES */
+require('./config/passportConfig')();
 app.use(passport.session());
 
-/* SETTING CURRENT USER MIDDLEWARE */
-app.use((req, res, next) => {
-  res.locals.currentUser = req.user;
-  next();
-});
+/* SETTING CURRENT USER MIDDLEWARE FOR VIEWS */
+const currentUserMiddleware = require('./middlewares/currentUserMiddleware');
+app.use(currentUserMiddleware);
 
 /* ROUTERS */
 const indexRouter = require('./routes/indexRouters');
+const userRouter = require('./routes/userRouters');
+const authRouter = require('./routes/authRouters');
+const membershipRouter = require('./routes/membershipRouters');
+const postRouter = require('./routes/postRouter');
 
+app.use('/', authRouter);
+app.use('/users', userRouter);
+app.use('/posts', postRouter);
+app.use('/membership', membershipRouter);
 app.use(indexRouter);
 
 /* PAGE NOT FOUND ERROR HANDLER */
 app.use((req, res, next) => {
-  res.status(404).send('Page Not Found.');
+  res.status(404).render('index', {
+    windowTitle: 'Page Not Found | Membership Club',
+    documentTitle: 'Page Not Found',
+    content: {
+      location: '/404',
+      data: {},
+      validationError: []
+    }
+  });
 });
 
 /* SERVER ERROR HANDLER */
