@@ -1,0 +1,13 @@
+<%- include('../partials/errors') %>
+
+<form action="/posts/new" method="POST">
+  <label for="title">Title</label>
+  <br>
+  <input type="text" name="title" id="title" placeholder="Post title" required>
+  <br>
+  <label for="message">Message</label>
+  <br>
+  <textarea name="message" id="message" rows="8" cols="21" placeholder="Post message" required></textarea>
+  <br>
+  <button type="submit">Post</button>
+</form>

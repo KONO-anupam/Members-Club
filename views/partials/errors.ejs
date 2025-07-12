@@ -1,0 +1,9 @@
+<% if (content.validationError) { %>
+  <div class="validation-error">
+    <ul>
+    <% content.validationError.forEach(error=> { %>
+      <li><%= error.msg %></li>
+    <% }) %>
+    </ul>
+  </div>
+  <% } %>

@@ -1,0 +1,15 @@
+<main>
+  <% if (content.location === '/404') { %>
+    <%- include('../pages/404') %>
+  <% }else if (content.location === '/') { %>
+    <%- include('../pages/home') %>
+  <% } else if (content.location === '/signup') { %>
+    <%- include('../pages/signup') %>
+  <% } else if (content.location === '/login') {%>
+    <%- include('../pages/login') %>
+  <% } else if (content.location === '/membership'){%>
+    <%- include('../pages/membership') %>
+  <% } else if (content.location === '/posts/new') { %>
+    <%- include('../pages/newPost') %>
+  <% } %>
+</main>

@@ -1,0 +1,14 @@
+<% if (locals.currentUser.role_id===4) { %>
+  <form action="/membership" method="POST">
+    <label for="passcode">Passcode: </label>
+    <input type="password" name="passcode" id="passcode" placeholder="Passcode">
+    <button type="submit">Join</button>
+  </form>
+<% } else { %>
+  <div> You are already a club member</div>
+  <a href="/">Back to home</a>  
+<% } %>
+
+<% if (locals.error_msg) { %>
+  <div class="alert-error"><%= error_msg %></div>
+<% } %>
