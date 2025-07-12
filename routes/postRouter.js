@@ -1,5 +1,5 @@
 const postRouter = require('express').Router();
-const { redirectHomePage, getPostPage, postPostForm } = require('../controllers/postController');
+const { redirectHomePage, getPostPage, postPostForm, getSinglePostPage } = require('../controllers/postController');
 
 /* 
 *   @method GET
@@ -11,9 +11,17 @@ postRouter.get('/', redirectHomePage);
 /* 
 *   @method GET
 *   @route  /posts/new 
-*   @desc   Create a new post
+*   @desc   Get new post page/form
 */
 postRouter.get('/new', getPostPage);
+
+/* 
+*   @method GET
+*   @route  /posts/:id
+*   @desc   Get user post page
+*/
+postRouter.get('/:id', getSinglePostPage);
+
 
 /* 
 *   @method POST
