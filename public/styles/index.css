@@ -1,0 +1,56 @@
+/* :root overrides (CSS variables used by Bulma) */
+:root {
+  /* Primary colors */
+  --bulma-primary: #4f46e5;      /* Indigo */
+  --bulma-dark: #121212;         /* True dark */
+  --bulma-light: #1e1e1e;        /* Lighter dark for contrast */
+
+  /* Typography */
+  --bulma-family-sans-serif: 'Poppins', 'Segoe UI', sans-serif;
+  --bulma-size-1: 2.5rem;
+  --bulma-size-2: 2rem;
+  --bulma-size-3: 1.5rem;
+  --bulma-size-4: 1.25rem;
+
+  /* Borders, radius, spacing (example overrides) */
+  --bulma-radius-small: 4px;
+  --bulma-radius: 8px;
+  --bulma-radius-large: 12px;
+
+  /* Custom spacing */
+  --section-padding: 3rem 1.5rem;
+}
+
+/* Global styles */
+body {
+  background-color: var(--bulma-dark);
+  color: #f1f1f1;
+  font-family: var(--bulma-family-sans-serif);
+}
+
+/* Adjust Bulma components for dark theme */
+.navbar,
+.box,
+.card {
+  background-color: var(--bulma-light);
+  color: #f1f1f1;
+  border-radius: var(--bulma-radius);
+}
+
+/* Button customization */
+.button.is-primary {
+  background-color: var(--bulma-primary);
+  border-color: var(--bulma-primary);
+  color: #fff;
+}
+.button.is-primary:hover {
+  background-color: #4338ca; /* Darker indigo */
+}
+
+/* Links */
+a {
+  color: var(--bulma-primary);
+}
+a:hover {
+  text-decoration: underline;
+}
