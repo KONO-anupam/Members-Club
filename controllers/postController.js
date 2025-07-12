@@ -4,6 +4,7 @@ const isAuthenticated = require('../middlewares/isAuthenticatedMiddleware');
 const { validatePostForm } = require('../utils/validation');
 const { validationResult } = require('express-validator');
 const { nanoid } = require('nanoid');
+const isAdmin = require('../middlewares/isAdminMiddleware');
 
 const getHomePage = async (req, res, next) => {
   try {
@@ -14,7 +15,7 @@ const getHomePage = async (req, res, next) => {
       content: {
         location: '/',
         data: {
-          posts
+          posts: posts.sort((a, b) => b.created_at - a.created_at)
         }
       }
     });
@@ -73,9 +74,34 @@ const postPostForm = [
   }
 ];
 
+const getSinglePostPage = [
+  isAdmin,
+  async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const post = await Post.findById(id);
+
+    if (!post) throw new Error(`Post with an id of "${id}" not found.`);
+
+    res.render('index', {
+      windowTitle: `${post.title} | Members Club'`,
+      documentTitle: `${post.title}`,
+      content: {
+        location: '/posts/id',
+        data: {
+          post
+        },
+      }
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+];
 module.exports = {
   getHomePage,
   redirectHomePage,
   getPostPage,
-  postPostForm
+  postPostForm,
+  getSinglePostPage
 };

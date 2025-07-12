@@ -6,7 +6,7 @@ const db = require('../database/index');
 const findAll = async () => {
   const query = `
     SELECT 
-      p.id, p.user_id, u.first_name, u.username, p.title, p.message
+      p.id, p.user_id, u.first_name, u.username, p.title, p.message, p.created_at, p.updated_at
     FROM 
       posts as p
     INNER JOIN 
@@ -22,7 +22,19 @@ const findAll = async () => {
 */
 
 const findById = async (id) => {
-  const { rows } = await db.query('SELECT * FROM posts WHERE id = $1', [id]);
+  const query = `
+    SELECT 
+      p.id, p.user_id, u.first_name, u.username, p.title, p.message, p.created_at, p.updated_at
+    FROM 
+      posts as p
+    INNER JOIN 
+      users as u
+    ON
+      p.user_id = u.id
+    WHERE
+      p.id = $1;
+  `;
+  const { rows } = await db.query(query, [id]);
   return rows[0];
 };
 
@@ -77,6 +89,7 @@ const deleteById = async (id) => {
 module.exports = {
   findAll,
   findById,
+  findByUsername,
   create,
   updateById,
   deleteById,
