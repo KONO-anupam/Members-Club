@@ -1,8 +1,11 @@
+const { getHomePage } = require('../controllers/postController');
 const indexRouter = require('express').Router();
 
-indexRouter.get('/', (req, res) => {
-  res.send('meow');
-});
-
+/* 
+*   @method GET
+*   @route  / 
+*   @desc   Get home page and display users post
+*/
+indexRouter.get('/', getHomePage);
 
 module.exports = indexRouter;
