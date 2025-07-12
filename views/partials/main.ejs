@@ -11,5 +11,7 @@
     <%- include('../pages/membership') %>
   <% } else if (content.location === '/posts/new') { %>
     <%- include('../pages/newPost') %>
+  <% } else if (content.location === '/posts/id') { %> 
+    <%- include('../pages/singlePost') %>
   <% } %>
 </main>
