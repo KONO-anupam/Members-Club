@@ -1,6 +1,6 @@
 <% if (locals.currentUser.role_id===4) { %>
   <div class="section is-flex is-justify-content-center is-align-items-center">
-    <div class="box" style="min-width: 400px; max-width: 100%;">
+    <div class="box" style="min-width: 300px; width: 500px; max-width: 100%;">
       <h1 class="title has-text-centered">Join the Club</h1>
       <!-- Error Message -->
       <% if (locals.error_msg.length) { %>
@@ -44,4 +44,12 @@
       </a>
     </div>
   </div>
+<% } %>
+
+<% if (currentUser && [1, 2].includes(currentUser.role_id)) { %>
+  <a href="/admin/users" class="admin-fab" title="Go to Admin Panel">
+    <span class="icon is-medium">
+      <i class="fas fa-tools"></i>
+    </span>
+  </a>
 <% } %>

@@ -82,7 +82,7 @@ a:hover {
 .input:focus,
 .textarea:focus {
   border-color: var(--bulma-primary);
-  box-shadow: 0 0 0 0.125em rgba(79, 70, 229, 0.25); /* optional glow */
+  box-shadow: 0 0 0 0.125em rgba(79, 70, 229, 0.25); 
 }
 
 /* ADMIN UI */
@@ -107,9 +107,10 @@ a:hover {
 }
 
 .admin-fab .icon {
-  pointer-events: none; /* make the icon click-through */
+  pointer-events: none; 
 }
 
+/* SIDEBAR */
 .sidebar-menu {
   position: fixed;
   top: 0;
@@ -117,11 +118,11 @@ a:hover {
   width: 230px;
   height: 100%;
   backdrop-filter: blur(8px);
-  background-color: #121212d7; /* dark + semi-transparent */
+  background-color: #121212d7;
   overflow-y: auto;
   transition: left 0.3s ease;
   z-index: 1000;
-  padding-top: 4.5rem; /* offset from navbar */
+  padding-top: 4.5rem;
 }
 
 .sidebar-menu.is-active {

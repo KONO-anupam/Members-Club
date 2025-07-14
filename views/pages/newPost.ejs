@@ -1,5 +1,5 @@
 <div class="section is-flex is-justify-content-center is-align-items-center">
-  <div class="box p-5" style="min-width: 500px; max-width: 100%;">
+  <div class="box p-5" style="min-width: 300px; width: 500px; max-width: 100%;">
 
     <h1 class="title has-text-centered">Create a New Post</h1>
 
@@ -52,3 +52,11 @@
     </form>
   </div>
 </div>
+
+<% if (currentUser && [1, 2].includes(currentUser.role_id)) { %>
+  <a href="/admin/users" class="admin-fab" title="Go to Admin Panel">
+    <span class="icon is-medium">
+      <i class="fas fa-tools"></i>
+    </span>
+  </a>
+<% } %>
