@@ -51,7 +51,7 @@ const postPostForm = [
   validatePostForm,
   async (req, res, next) => {
     try {
-      const post = { title, message } = req.body;
+      const post ={ title, message } = req.body;
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         return res.render('index', {
