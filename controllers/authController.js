@@ -1,7 +1,7 @@
 const User = require('../models/userModel');
 const bcrypt = require('bcrypt');
 const passport = require('passport');
-const { nanoid } = require('nanoid');
+// const { nanoid } = require('nanoid');
 const { validationResult } = require('express-validator')
 const { validateUserSignup, validateUserLogin } = require('../utils/validation');
 const checkEmailExists = require('../middlewares/CheckEmailExistsMiddleware');
@@ -27,6 +27,7 @@ const postSignupForm = [
   validateUserSignup, /* Then validate and sanitate the input [middleware] */
   async (req, res, next) => {
     try {
+      const { nanoid } = await import('nanoid');
       const { isEmailUsed } = req;
       const user = { firstName, lastName, username, email, password, confirmPassword } = req.body;
       const errors = validationResult(req);

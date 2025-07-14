@@ -3,7 +3,7 @@ const Post = require('../models/postModel');
 const isAuthenticated = require('../middlewares/isAuthenticatedMiddleware');
 const { validatePostForm } = require('../utils/validation');
 const { validationResult } = require('express-validator');
-const { nanoid } = require('nanoid');
+// const { nanoid } = require('nanoid');
 const isAdmin = require('../middlewares/isAdminMiddleware');
 
 const getHomePage = async (req, res, next) => {
@@ -51,6 +51,7 @@ const postPostForm = [
   validatePostForm,
   async (req, res, next) => {
     try {
+      const { nanoid } = await import('nanoid');
       const post ={ title, message } = req.body;
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
