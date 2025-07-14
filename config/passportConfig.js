@@ -11,13 +11,20 @@ function initialize() {
       try {
         // console.log(nameOrEmail, password);
         const  user = !nameOrEmail.includes('@') ?  await User.findByUsername(nameOrEmail) : await User.findByEmail(nameOrEmail);
+        
         if (!user) {
           return done(null, false, { message: 'Incorrect username or email' });
         }
+        
         const match = await bcrypt.compare(password, user.password);
         if (!match) {
           return done(null, false, { message: 'Incorrect password' });
         }
+
+        if (user.deactivated) {
+          return done(null, false, {message: 'Account deactivated. Please contact the admin to appeal.'})
+        }
+        
         return done(null, user);
       } catch (error) {
         return done(error);

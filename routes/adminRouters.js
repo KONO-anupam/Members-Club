@@ -1,7 +1,8 @@
 const adminRouter = require('express').Router();
+const isAdminMiddleware = require('../middlewares/isAdminMiddleware');
 const userRouter = require('./userRouters');
 
-adminRouter.use('/users', userRouter);
+adminRouter.use('/users', isAdminMiddleware, userRouter);
 
 /* 
 *   @method GET
@@ -14,7 +15,7 @@ adminRouter.use('/users', userRouter);
 *   @route  /admin/users 
 *   @desc   Get users page
 */
-adminRouter.get('/users', userRouter);
+adminRouter.get('/users', isAdminMiddleware, userRouter);
 
 
 module.exports = adminRouter;

@@ -2,9 +2,7 @@ const isAdminMiddleware = require('../middlewares/isAdminMiddleware');
 const User = require('../models/userModel');
 
 
-const getAllUsers = [
-  isAdminMiddleware,
-  async (req, res, next) => {
+const getAllUsers = async (req, res, next) => {
   try {
     const users = await User.findAll();
     res.render('index', {
@@ -21,8 +19,7 @@ const getAllUsers = [
   } catch (error) {
     next(error);
   }
-}
-]
+};
 
 const getUserById = async (req, res, next) => {
   try {
@@ -39,6 +36,31 @@ const createUser = async (req, res, next) => {
     next(error);
   }
 }
+
+const updateUserRoleById = [
+  async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const { role_id } = req.body;
+      // console.log(req.body);
+      await User.updateRoleById(id, role_id);
+      res.redirect('/admin/users');
+    } catch (error) {
+      next(error);
+    }
+  }
+];
+
+const updateUserStatusById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const isDeactivated  = JSON.parse(req.body.isDeactivated);
+    isDeactivated ?  await User.deactivateById(id) : await User.activateById(id);
+    res.redirect('/admin/users');
+  } catch (error) {
+    next(error);
+  }
+};
 
 const updateUserById = async (req, res, next) => {
   try {
@@ -65,4 +87,13 @@ const deleteUserById = async (req, res, next) => {
 }
 
 
-module.exports = { getAllUsers, getUserById, createUser, updateUserById, updateUserPassword, deleteUserById };
+module.exports = {
+  getAllUsers,
+  getUserById,
+  updateUserRoleById,
+  updateUserStatusById,
+  createUser,
+  updateUserById,
+  updateUserPassword,
+  deleteUserById
+};

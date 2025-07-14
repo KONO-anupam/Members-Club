@@ -83,13 +83,17 @@ const postLoginForm = [
   validateUserLogin,
   async (req, res, next) => {
     const errors = validationResult(req);
+    const { nameOrEmail } = req.body;
+
     if (!errors.isEmpty()) {
       return res.status(400).render('index', {
         windowTitle: 'Login | Members Club',
         documentTitle: 'Login',
         content: {
           location: '/login',
-          data: {},
+          data: {
+            nameOrEmail
+          },
           validationError: errors.array()
         }
       })

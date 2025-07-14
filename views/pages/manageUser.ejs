@@ -38,10 +38,11 @@
                 </form>
               </td>
               <td>
-                <form action="/admin/users/<%= user.id %>/toggle-active" method="POST" class="is-inline-block">
+                <form action="/admin/users/<%= user.id %>/toggle-active?_method=PUT" method="POST" class="is-inline-block">
+                  <input type="hidden" name="isDeactivated" value="<%= user.deactivated ? false : true %>">
                   <button 
                     class="button is-small 
-                    <%= user.deactivated ? 'is-success': 'is-warning'  %> " 
+                    <%= user.deactivated ? 'is-success': 'is-danger' %> " 
                     <%= user.role_id === 1 ? 'disabled' : '' %>
                     type="submit">
                     <%= user.deactivated ? 'Activate' : 'Deactivate' %>
@@ -55,4 +56,3 @@
     </div>
   </div>
 </div>
-

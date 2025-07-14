@@ -97,11 +97,12 @@ const updateRoleById = async (id, role_id) => {
     UPDATE
       users
     SET
-      role_id = $1
+      role_id = $1,
+      updated_at = $2
     WHERE
-      id = $2
+      id = $3
   `;
-  await db.query(query, [role_id, id]);
+  await db.query(query, [role_id, new Date(), id]);
 }
 
 /*
@@ -111,13 +112,18 @@ const deleteById = async (id) => {
   await db.query('DELETE FROM users WHERE = $1', [id]);
 }
 
-
+/*
+* @DESC Activate user by ID
+*/
 const activateById = async (id) => {
-  await db.query('UPDATE users SET deactivated = $1 WHERE id = $2', [false, id]);
+  await db.query('UPDATE users SET deactivated = $1, updated_at = $2 WHERE id = $3', [false, new Date(), id]);
 }
 
+/*
+* @DESC Deactivate user by ID
+*/
 const deactivateById = async (id) => {
-  await db.query('UPDATE users SET deactivated = $1 WHERE id = $2', [true, id]);
+  await db.query('UPDATE users SET deactivated = $1, updated_at = $2 WHERE id = $3', [true, new Date(), id]);
 }
 
 module.exports = {

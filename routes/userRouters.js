@@ -1,5 +1,5 @@
 const userRouter = require('express').Router();
-const { getAllUsers, getUserById, createUser, updateUserById, updateUserPassword, deleteUserById } = require('../controllers/userController');
+const { getAllUsers, getUserById, createUser, updateUserById, updateUserPassword, deleteUserById, updateUserRoleById, updateUserStatusById } = require('../controllers/userController');
 
 /* 
 *   @method GET
@@ -8,21 +8,20 @@ const { getAllUsers, getUserById, createUser, updateUserById, updateUserPassword
 */
 userRouter.get('/', getAllUsers);
 
-/* TODO    |
-          ||
-          V
-*/
-
 /* 
 *   @method PUT
 *   @route  /users/:id/update-role 
 *   @desc   Update user role by ID
 */
+userRouter.put('/:id/update-role', updateUserRoleById);
 
 /* 
-*   @method DELETE
-*   @route  /users/:id/delete 
-*   @desc   Get user by ID
+*   @method PUT
+*   @route  /users/:id/toggle-active 
+*   @desc   Update user status by ID
 */
+userRouter.put('/:id/toggle-active', updateUserStatusById);
+
+
 
 module.exports = userRouter;
