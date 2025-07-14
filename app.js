@@ -5,6 +5,7 @@ const PgSession = require('connect-pg-simple')(session);
 const { pool } = require('./database/index');
 const passport = require('passport');
 const flash = require('connect-flash');
+const methodOverride = require('method-override');
 
 /* LOAD ENVIRONMENT VARIABLES */
 require('dotenv').config();
@@ -56,15 +57,19 @@ app.use(passport.session());
 const currentUserMiddleware = require('./middlewares/currentUserMiddleware');
 app.use(currentUserMiddleware);
 
+/* SETTING METHOD OVERRIDE MIDDLEWARE */
+app.use(methodOverride('_method'));
+
 /* ROUTERS */
 const indexRouter = require('./routes/indexRouters');
-const userRouter = require('./routes/userRouters');
 const authRouter = require('./routes/authRouters');
 const membershipRouter = require('./routes/membershipRouters');
 const postRouter = require('./routes/postRouter');
+const adminRouter = require('./routes/adminRouters');
+const isAdminMiddleware = require('./middlewares/isAdminMiddleware');
 
 app.use('/', authRouter);
-app.use('/users', userRouter);
+app.use('/admin', isAdminMiddleware, adminRouter);
 app.use('/posts', postRouter);
 app.use('/membership', membershipRouter);
 app.use(indexRouter);
