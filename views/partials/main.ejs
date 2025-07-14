@@ -1,6 +1,8 @@
 <main class="section main-content">
   <% if (content.location === '/404') { %>
     <%- include('../pages/404') %>
+  <% }else if (content.location === '/500') { %>
+    <%- include('../pages/500') %>
   <% }else if (content.location === '/') { %>
     <%- include('../pages/home') %>
   <% } else if (content.location === '/signup') { %>
