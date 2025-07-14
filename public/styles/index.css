@@ -109,3 +109,25 @@ a:hover {
 .admin-fab .icon {
   pointer-events: none; /* make the icon click-through */
 }
+
+.sidebar-menu {
+  position: fixed;
+  top: 0;
+  left: -250px;
+  width: 230px;
+  height: 100%;
+  backdrop-filter: blur(8px);
+  background-color: #121212d7; /* dark + semi-transparent */
+  overflow-y: auto;
+  transition: left 0.3s ease;
+  z-index: 1000;
+  padding-top: 4.5rem; /* offset from navbar */
+}
+
+.sidebar-menu.is-active {
+  left: 0;
+}
+
+.navbar-burger span {
+  background-color: #ffffff !important;
+}

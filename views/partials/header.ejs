@@ -1,60 +1,68 @@
-<header class="is-5">
-  <nav class="navbar" role="navigation" aria-label="main-navigation">
-    <div class="container">
-      <div class="navbar-brand">
-        <a href="/" class="is-flex is-align-items-center has-text-link">
-          <figure class="image is-64x64">
-            <img src="/assets/android-chrome-192x192.png" alt="members-club-logo"">
-          </figure>
-          <span class="has-text-weight-bold is-size-4">
-            Members Club
-          </span>
-        </a>
-      </div>
-      <div class="navbar-menu">
+<header class="navbar is-dark is-fixed-top px-4">
+  <div class="container is-flex is-justify-content-space-between is-align-items-center py-3">
+    <!-- Brand -->
+    <a href="/" class="is-flex is-align-items-center has-text-light">
+      <figure class="image is-32x32 mr-2">
+        <img src="/assets/android-chrome-192x192.png" alt="logo">
+      </figure>
+      <span class="has-text-weight-semibold is-size-5">Members Club</span>
+    </a>
+
+    <!-- Desktop Menu -->
+    <div class="is-hidden-touch">
+      <div class="navbar-menu is-active">
         <div class="navbar-end">
-        <% if (!currentUser) { %>
-          <div class="navbar-item">
-            <div class="buttons">
+          <% if (!currentUser) { %>
+            <div class="navbar-item">
               <a href="/login" class="button is-primary">Log in</a>
-              <a href="/signup" class="button is-dark">Sign up</a>
-            </div>
-          </div>
-        <% } else if ([1,2].includes(currentUser.role_id)) { %>
-            <div class="navbar-item">
-              <a href="/posts/new" class="navbar-item">
-                New Post
-              </a>
             </div>
             <div class="navbar-item">
-              <a href="/membership" class="navbar-item">
-                Join Membership
-              </a>
+              <a href="/signup" class="button is-light">Sign up</a>
+            </div>
+          <% } else { %>
+            <div class="navbar-item">
+              <a href="/posts/new" class="has-text-light">New Post</a>
             </div>
             <div class="navbar-item">
-              <div class="buttons">
-                <a href="/logout" class="button is-danger is-normal is-outlined">Log out</a>
-              </div>
-            </div>
-          </div>
-        <% } else { %>
-            <div class="navbar-item">
-              <a href="/posts/new" class="navbar-item">
-                New Post
-              </a>
+              <a href="/membership" class="has-text-light">Join Membership</a>
             </div>
             <div class="navbar-item">
-              <a href="/membership" class="navbar-item">
-                Join Membership
-              </a>
-            </div>
-            <div class="navbar-item">
-              <div class="buttons">
-                <a href="/logout" class="button is-danger is-light is-normal is-outlined">Log out</a>
-              </div>
+              <a href="/logout" class="button is-danger is-outlined">Log out</a>
             </div>
           <% } %>
         </div>
       </div>
-  </nav>
+    </div>
+
+    <!-- Hamburger -->
+    <a role="button" class="navbar-burger is-hidden-desktop" id="burgerToggle" aria-label="menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </a>
+  </div>
+
+  <!-- Sidebar for Mobile -->
+  <div id="sidebarMenu" class="sidebar-menu is-hidden-desktop">
+    <div class="p-5">
+      <% if (!currentUser) { %>
+        <a href="/login" class="navbar-item has-text-light is-flex is-align-items-center mb-3">
+          <span class="icon mr-2"><i class="fas fa-sign-in-alt"></i></span> Log in
+        </a>
+        <a href="/signup" class="navbar-item has-text-light is-flex is-align-items-center">
+          <span class="icon mr-2"><i class="fas fa-user-plus"></i></span> Sign up
+        </a>
+      <% } else { %>
+        <a href="/posts/new" class="navbar-item has-text-light is-flex is-align-items-center mb-3">
+          <span class="icon mr-2"><i class="fas fa-edit"></i></span> New Post
+        </a>
+        <a href="/membership" class="navbar-item has-text-light is-flex is-align-items-center mb-3">
+          <span class="icon mr-2"><i class="fas fa-users"></i></span> Membership
+        </a>
+        <a href="/logout" class="navbar-item has-text-danger is-flex is-align-items-center">
+          <span class="icon mr-2"><i class="fas fa-sign-out-alt"></i></span> Log out
+        </a>
+      <% } %>
+    </div>
+  </div>
 </header>
