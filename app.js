@@ -82,7 +82,6 @@ app.use((req, res, next) => {
     content: {
       location: '/404',
       data: {},
-      validationError: []
     }
   });
 });
@@ -90,7 +89,14 @@ app.use((req, res, next) => {
 /* SERVER ERROR HANDLER */
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).send('There was an unexpected error.');
+  res.status(500).render('index', {
+    windowTitle: 'Interal Server Error | Membership Club',
+    documentTitle: 'Internal Server Error',
+    content: {
+      location: '/500',
+      data: {},
+    }
+  });
 });
 
 app.listen(PORT, () => console.log(`🚀 Listening on http://localhost:${PORT}/`));
