@@ -11,7 +11,6 @@ function initialize() {
       try {
         // console.log(nameOrEmail, password);
         const  user = !nameOrEmail.includes('@') ?  await User.findByUsername(nameOrEmail) : await User.findByEmail(nameOrEmail);
-        
         if (!user) {
           return done(null, false, { message: 'Incorrect username or email' });
         }
