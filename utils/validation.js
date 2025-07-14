@@ -7,7 +7,7 @@ const passwordErr = {
   minLength: 'must be at least 8 characters long. ',
   minUppercase: 'must be have at least one upper case character. ',
   minNumbers: 'must be have at least one number. ',
-  minSymbols: 'must be have at least one special characters. ',
+  minSymbols: 'must be have at least one special characters. [e.g, !,@,#,$,%] ',
 };
 
 const validateUserSignup = [
@@ -21,13 +21,7 @@ const validateUserSignup = [
     .isAlpha().withMessage(`username ${alphaErr}`)
     .isLength({ min: 3, max: 20 }).withMessage(`Last name ${lengthErr}`),
   body('email').trim().escape()
-    .isEmail().withMessage(`Email ${emailFormatErr}`)
-    .custom((value, { req }) => {
-      if (req.emailUsed) {
-        throw new Error('User already exist with this email.');
-      }
-      return true;
-    }),
+    .isEmail().withMessage(`Email ${emailFormatErr}`),
   body('password').trim().escape()
     .isStrongPassword({ minLength: 8 }).withMessage(`Password ${passwordErr.minLength}`)
     .isStrongPassword({ minUppercase: 1 }).withMessage(`Password ${passwordErr.minUppercase}`)
