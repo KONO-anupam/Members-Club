@@ -1,15 +1,52 @@
-<%- include('../partials/errors') %>
+<div class="section is-flex is-justify-content-center is-align-items-center">
+  <div class="box p-6" style="min-width: 400px; max-width: 100%;">
 
-<form action="/login" method="POST">
-  <input type="text" name="nameOrEmail" placeholder="Username or Email">
-  <br>
+    <h1 class="title has-text-centered is-2">Login</h1>
 
-  <input type="password" name="password" placeholder="Password" required>
-  <br>
+    <!-- Show validation errors (from /partials/errors.ejs) -->
+    <%- include('../partials/errors') %>
 
-  <button type="submit">Log in</button>
-</form>
+    <% if (locals.error_msg.length) { %>
+      <div class="notification is-danger is-light">
+        <%= error_msg %>
+      </div>
+    <% } %>
 
-<% if (locals.error_msg) { %>
-  <div class="alert-error"><%= error_msg %></div>
-<% } %>
+    <form action="/login" method="POST">
+      <div class="field">
+        <label class="label" for="nameOrEmail">Username or Email</label>
+        <div class="control has-icons-left">
+          <input class="input" type="text" name="nameOrEmail" placeholder="Enter your username or email" value="<%= content.data?.nameOrEmail || '' %>" required>
+          <span class="icon is-small is-left">
+            <i class="fas fa-user"></i>
+          </span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label" for="password">Password</label>
+        <p class="control has-icons-left">
+          <input class="input" name="password" type="password" placeholder="Password">
+          <span class="icon is-small is-left">
+            <i class="fas fa-lock"></i>
+          </span>
+        </p>
+      </div>
+
+      <div class="buttons mt-4 is-flex is-flex-direction-column">
+        <button class="button is-link is-fullwidth" type="submit">Log in</button>
+        <a href="/" class="button is-light is-fullwidth">Back to home</a>
+      </div>
+      
+
+    </form>
+
+    <hr>
+
+    <p class="has-text-centered">
+      Don't have an account?
+      <a href="/signup">Sign up here</a>.
+    </p>
+
+  </div>
+</div>

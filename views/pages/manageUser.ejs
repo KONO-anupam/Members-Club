@@ -1,0 +1,54 @@
+<% const { users } = content.data; %>
+
+<div class="section">
+  <div class="container">
+    <h1 class="title is-3">Manage Users</h1>
+
+    <div class="table-container">
+      <table class="table is-fullwidth is-striped is-hoverable">
+        <thead>
+          <tr>
+            <th>User Id</th>
+            <th>Full Name</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Posts</th>
+            <th>Role</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% users.forEach(user => { %>
+            <tr>
+              <td><%= user.id %></td>
+              <td><%= user.full_name %></td>
+              <td>@<%= user.username %></td>
+              <td><%= user.email %></td>
+              <td><%= user.post_count %></td>
+              <td>
+                <form action="/admin/users/<%= user.id %>/update-role" method="POST" class="is-flex">
+                  <div class="select is-small">
+                    <select name="role_id" onchange="this.form.submit()">
+                      <option value="1" <%= user.role_id === 1 ? 'selected' : '' %>>Super Admin</option>
+                      <option value="2" <%= user.role_id === 2 ? 'selected' : '' %>>Admin </option>
+                      <option value="3" <%= user.role_id === 3 ? 'selected' : '' %>>Member</option>
+                      <option value="4" <%= user.role_id === 4 ? 'selected' : '' %>>Guest </option>
+                    </select>
+                  </div>
+                </form>
+              </td>
+              <td>
+                <form action="/admin/users/<%= user.id %>/toggle-active" method="POST" class="is-inline-block">
+                  <button class="button is-small <%= user.deactivated ? 'is-success': 'is-warning'  %>" type="submit">
+                    <%= user.deactivated ? 'Activate' : 'Deactivate' %>
+                  </button>
+                </form>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+

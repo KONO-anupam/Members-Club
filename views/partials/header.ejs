@@ -1,60 +1,60 @@
-<header>
+<header class="is-5">
   <nav class="navbar" role="navigation" aria-label="main-navigation">
-    <div class="navbar-brand">
-      <a href="/" class="is-flex is-align-items-center has-text-primary-light">
-        <figure class="image is-48x48 ">
-          <img src="/assets/android-chrome-192x192.png" alt="members-club-logo">
-        </figure>
-        <span class="has-text-weight-bold has-text-white-bis">
-          Members Club
-        </span>
-      </a>
-    </div>
-    <div class="navbar-menu">
-      <div class="navbar-end">
-      <% if (!currentUser) { %>
-        <div class="navbar-item">
-          <div class="buttons">
-            <a href="/login" class="button is-primary">Log in</a>
-            <a href="/signup" class="button is-dark">Sign up</a>
-          </div>
-        </div>
-      <% } else if ([1,2].includes(currentUser.role_id)) { %>
-          <div class="navbar-item">
-            <a href="/posts/new" class="navbar-item">
-              New Post
-            </a>
-          </div>
-          <div class="navbar-item">
-            <a href="/membership" class="navbar-item">
-              Join Membership
-            </a>
-          </div>
-          <div class="navbar-item">
-            <div class="buttons">
-              <a href="/logout" class="button is-primary">Log out</a>
-            </div>
-          </div>
-        </div>
-      <% } else { %>
-          <div class="navbar-item">
-            <a href="/posts/new" class="navbar-item">
-              New Post
-            </a>
-          </div>
-          <div class="navbar-item">
-            <a href="/membership" class="navbar-item">
-              Join Membership
-            </a>
-          </div>
-          <div class="navbar-item">
-            <div class="buttons">
-              <a href="/logout" class="button is-primary">Log out</a>
-            </div>
-          </div>
-
-        <% } %>
+    <div class="container">
+      <div class="navbar-brand">
+        <a href="/" class="is-flex is-align-items-center has-text-link">
+          <figure class="image is-64x64">
+            <img src="/assets/android-chrome-192x192.png" alt="members-club-logo"">
+          </figure>
+          <span class="has-text-weight-bold is-size-4">
+            Members Club
+          </span>
+        </a>
       </div>
-    </div>
+      <div class="navbar-menu">
+        <div class="navbar-end">
+        <% if (!currentUser) { %>
+          <div class="navbar-item">
+            <div class="buttons">
+              <a href="/login" class="button is-primary">Log in</a>
+              <a href="/signup" class="button is-dark">Sign up</a>
+            </div>
+          </div>
+        <% } else if ([1,2].includes(currentUser.role_id)) { %>
+            <div class="navbar-item">
+              <a href="/posts/new" class="navbar-item">
+                New Post
+              </a>
+            </div>
+            <div class="navbar-item">
+              <a href="/membership" class="navbar-item">
+                Join Membership
+              </a>
+            </div>
+            <div class="navbar-item">
+              <div class="buttons">
+                <a href="/logout" class="button is-danger is-normal is-outlined">Log out</a>
+              </div>
+            </div>
+          </div>
+        <% } else { %>
+            <div class="navbar-item">
+              <a href="/posts/new" class="navbar-item">
+                New Post
+              </a>
+            </div>
+            <div class="navbar-item">
+              <a href="/membership" class="navbar-item">
+                Join Membership
+              </a>
+            </div>
+            <div class="navbar-item">
+              <div class="buttons">
+                <a href="/logout" class="button is-danger is-light is-normal is-outlined">Log out</a>
+              </div>
+            </div>
+          <% } %>
+        </div>
+      </div>
   </nav>
 </header>

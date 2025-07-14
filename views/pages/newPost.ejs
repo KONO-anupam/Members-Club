@@ -1,13 +1,54 @@
-<%- include('../partials/errors') %>
+<div class="section is-flex is-justify-content-center is-align-items-center">
+  <div class="box p-5" style="min-width: 500px; max-width: 100%;">
 
-<form action="/posts/new" method="POST">
-  <label for="title">Title</label>
-  <br>
-  <input type="text" name="title" id="title" placeholder="Post title" required>
-  <br>
-  <label for="message">Message</label>
-  <br>
-  <textarea name="message" id="message" rows="8" cols="21" placeholder="Post message" required></textarea>
-  <br>
-  <button type="submit">Post</button>
-</form>
+    <h1 class="title has-text-centered">Create a New Post</h1>
+
+    <!-- Validation Errors -->
+    <%- include('../partials/errors') %>
+    <br>
+
+    <form action="/posts/new" method="POST">
+      
+      <div class="field">
+        <label class="label" for="title">Title</label>
+        <div class="control has-icons-left">
+          <input
+            class="input"
+            type="text"
+            name="title"
+            id="title"
+            placeholder="Enter post title"
+            required
+            value="<%= content.data?.title || '' %>"
+          >
+          <span class="icon is-small is-left">
+            <i class="fas fa-heading"></i>
+          </span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label" for="message">Message</label>
+        <div class="control">
+          <textarea
+            class="textarea"
+            name="message"
+            id="message"
+            rows="6"
+            placeholder="Write your message..."
+            required
+          ><%= content.data?.message || '' %></textarea>
+        </div>
+      </div>
+
+      <div class="buttons mt-4 is-flex is-flex-direction-column">
+        <button type="submit" class="button is-link is-fullwidth">
+          <span class="icon"><i class="fas fa-paper-plane"></i></span>
+          <span>Post</span>
+        </button>
+        <a href="/" class="button is-light is-fullwidth">Cancel</a>
+      </div>
+      
+    </form>
+  </div>
+</div>

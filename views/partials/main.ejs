@@ -1,4 +1,4 @@
-<main>
+<main class="section main-content">
   <% if (content.location === '/404') { %>
     <%- include('../pages/404') %>
   <% }else if (content.location === '/') { %>
@@ -13,5 +13,7 @@
     <%- include('../pages/newPost') %>
   <% } else if (content.location === '/posts/id') { %> 
     <%- include('../pages/singlePost') %>
+  <% } else if (content.location === '/admin/users') { %>
+    <%- include('../pages/manageUser') %>
   <% } %>
 </main>
