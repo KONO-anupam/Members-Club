@@ -7,7 +7,17 @@ const getAllUsers = [
   async (req, res, next) => {
   try {
     const users = await User.findAll();
-    res.send(users);
+    res.render('index', {
+      windowTitle: 'Manage User | Members Club',
+      documentTitle: 'Manage User',
+      content: {
+        location: '/admin/users',
+        data: {
+          users
+        }
+      }
+    });
+    // res.send(users);
   } catch (error) {
     next(error);
   }

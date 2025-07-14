@@ -83,7 +83,7 @@ const updateById = async (id, data) => {
 * @DESC Delete a post by ID
 */
 const deleteById = async (id) => {
-  await db.query('DELETE FROM posts WHERE = $1', [id]);
+  await db.query('DELETE FROM posts WHERE id = $1', [id]);
 }
 
 module.exports = {

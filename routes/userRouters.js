@@ -8,22 +8,15 @@ const { getAllUsers, getUserById, createUser, updateUserById, updateUserPassword
 */
 userRouter.get('/', getAllUsers);
 
-/* 
-*   @method GET
-*   @route  /users/:id 
-*   @desc   Get user by ID
+/* TODO    |
+          ||
+          V
 */
 
 /* 
-*   @method POST
-*   @route  /users/create 
-*   @desc   Create a new user
-*/
-
-/* 
-*   @method POST
-*   @route  /users/:id/update 
-*   @desc   Update user by ID
+*   @method PUT
+*   @route  /users/:id/update-role 
+*   @desc   Update user role by ID
 */
 
 /* 

@@ -27,20 +27,26 @@ const postSignupForm = [
   validateUserSignup, /* Then validate and sanitate the input [middleware] */
   async (req, res, next) => {
     try {
-      // console.log(req.emailUsed);
+      const { isEmailUsed } = req;
+      const user = { firstName, lastName, username, email, password, confirmPassword } = req.body;
       const errors = validationResult(req);
-      if (!errors.isEmpty()) {
+      if (!errors.isEmpty() || isEmailUsed) {
         return res.status(400).render('index', {
           windowTitle: 'Sign Up | Members Club',
           documentTitle: 'Sign Up',
           content: {
             location: '/signup',
-            data: {},
-            validationError: errors.array()
+            data: {
+              firstName,
+              lastName,
+              username,
+              isEmailUsed,
+              email,
+            },
+            validationError: errors.array(),
           }
         });
       }
-      const user = { firstName, lastName, username, email, password, confirmPassword } = req.body;
       const salt = await bcrypt.genSalt(10);
       const hashedPassword = await bcrypt.hash(password, salt);
       const newUser = {

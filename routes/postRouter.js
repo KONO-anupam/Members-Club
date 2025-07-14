@@ -1,5 +1,5 @@
 const postRouter = require('express').Router();
-const { redirectHomePage, getPostPage, postPostForm, getSinglePostPage } = require('../controllers/postController');
+const { redirectHomePage, getPostPage, postPostForm, getSinglePostPage, deleteSinglePost } = require('../controllers/postController');
 
 /* 
 *   @method GET
@@ -29,5 +29,12 @@ postRouter.get('/:id', getSinglePostPage);
 *   @desc   Create a new post
 */
 postRouter.post('/new', postPostForm);
+
+/* 
+*   @method DELETE
+*   @route  /posts/:id?_method=DELETE 
+*   @desc   Delete a post
+*/
+postRouter.post('/:id', deleteSinglePost);
 
 module.exports = postRouter;

@@ -51,20 +51,22 @@ const postPostForm = [
   validatePostForm,
   async (req, res, next) => {
     try {
+      const post = { title, message } = req.body;
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
-        // console.log('hello error');
         return res.render('index', {
           windowTitle: 'New Post | Membership Club',
           documentTitle: 'New Post',
           content: {
             location: '/posts/new',
-            data: {},
+            data: {
+              title,
+              message,
+            },
             validationError: errors.array()
           }
         });
       }
-      const post = { title, message } = req.body;
       const { id } = await req.user;
       await Post.create({ id: nanoid(), user_id: id, ...post });
       res.redirect('/');
@@ -77,31 +79,45 @@ const postPostForm = [
 const getSinglePostPage = [
   isAdmin,
   async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    const post = await Post.findById(id);
+    try {
+      const { id } = req.params;
+      const post = await Post.findById(id);
 
-    if (!post) throw new Error(`Post with an id of "${id}" not found.`);
+      if (!post) throw new Error(`Post with an id of "${id}" not found.`);
 
-    res.render('index', {
-      windowTitle: `${post.title} | Members Club'`,
-      documentTitle: `${post.title}`,
-      content: {
-        location: '/posts/id',
-        data: {
-          post
-        },
-      }
-    });
-  } catch (error) {
-    next(error);
+      res.render('index', {
+        windowTitle: `${post.title} | Members Club'`,
+        documentTitle: `${post.title}`,
+        content: {
+          location: '/posts/id',
+          data: {
+            post
+          },
+        }
+      });
+    } catch (error) {
+      next(error);
+    }
   }
-}
+];
+
+const deleteSinglePost = [
+  isAdmin,
+  async (req, res, next) => {
+    try {
+      const { id } = req.body;
+      await Post.deleteById(id);
+      res.redirect('/');
+    } catch (error) {
+      next(error);
+    }
+  }
 ];
 module.exports = {
   getHomePage,
   redirectHomePage,
   getPostPage,
   postPostForm,
-  getSinglePostPage
+  getSinglePostPage,
+  deleteSinglePost
 };

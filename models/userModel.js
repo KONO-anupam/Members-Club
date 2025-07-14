@@ -4,8 +4,26 @@ const db = require('../database/index');
 * @DESC Get all users
 */
 const findAll = async () => {
-
-  const { rows } = await db.query('SELECT * FROM users;');
+  const query = `
+    SELECT 
+      u.id,
+      u.role_id,
+      r.name as role_name,
+      CONCAT(u.first_name, ' ', u.last_name) as full_name, 
+      u.username,
+      u.email,
+      (SELECT COUNT(*) FROM posts as p WHERE p.user_id = u.id) as post_count,
+      u.deactivated
+    FROM 
+      users as u
+    INNER JOIN
+      user_roles as r
+    ON
+      u.role_id = r.id
+    ORDER BY
+      u.created_at;
+  `;
+  const { rows } = await db.query(query);
   return rows;
 };
 /*
