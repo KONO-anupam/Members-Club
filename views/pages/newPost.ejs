@@ -20,7 +20,7 @@
               id="title"
               placeholder="Enter post title"
               required
-              value="<%= content.data?.title || '' %>"
+              value="<%- content.data?.title || '' %>"
             >
             <span class="icon is-small is-left">
               <i class="fas fa-heading"></i>
@@ -38,7 +38,7 @@
               rows="6"
               placeholder="Write your message..."
               required
-            ><%= content.data?.message || '' %></textarea>
+            ><%- content.data?.message || '' %></textarea>
           </div>
         </div>
 
