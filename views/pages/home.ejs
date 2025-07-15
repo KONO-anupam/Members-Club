@@ -1,91 +1,93 @@
-<div class="container mt-5">
-  <% if (!currentUser) { %>
-    <article class="message is-info">
-      <div class="message-body content">
-        You need to <a href="/login">log in</a> in order to create a new post.
-      </div>
-    </article>
-  <% }else if (currentUser && currentUser.role_id === 4){%>
-    <article class="message is-info">
-      <div class="message-body content">
-        You need to apply for <a href="/membership">membership</a> in order to see author name and @username.
-      </div>
-    </article>
-  <% }%>
-  <div class="columns is-multiline is-variable is-5">
-    <% if (!content.data.posts.length) { %>
-      <div class="column is-full">
-        <p class="has-text-centered has-text-grey">No posts for a while. Share yours.</p>
-      </div>
-    <% } else { %>
-      <% content.data.posts.forEach(post => { %>
-        <div class="column is-half">
-          <div class="card" style="min-height: 300px; height: 400px;">
+<main class="section main-content">
+  <div class="container mt-6">
+    <% if (!currentUser) { %>
+      <article class="message is-info">
+        <div class="message-body content">
+          You need to <a href="/login">log in</a> in order to create a new post.
+        </div>
+      </article>
+    <% }else if (currentUser && currentUser.role_id === 4){%>
+      <article class="message is-info">
+        <div class="message-body content">
+          You need to apply for <a href="/membership">membership</a> in order to see author name and @username.
+        </div>
+      </article>
+    <% }%>
+    <div class="columns is-multiline is-variable is-5">
+      <% if (!content.data.posts.length) { %>
+        <div class="column is-full">
+          <p class="has-text-centered has-text-grey">No posts for a while. Share yours.</p>
+        </div>
+      <% } else { %>
+        <% content.data.posts.forEach(post => { %>
+          <div class="column is-half">
+            <div class="card" style="min-height: 300px; height: 400px;">
 
-            <div class="card-content">
-              <div class="is-flex is-justify-content-space-between is-align-items-start mb-4">
-                <div class="is-flex is-align-items-center">
-                  <div class="image is-32x32 mr-2">
-                    <img class="is-rounded" src="https://bulma.io/assets/images/placeholders/32x32.png" />
-                  </div>
-                  <div>
-                    <p class="subtitle is-6">
-                      <% if (!currentUser || currentUser && currentUser.role_id === 4) { %>
-                        <strong>
-                          Author
-                        </strong>
-                        <small>
-                          @anon
-                        </small>
-                      <% } else {%>
-                        <strong>
-                          <%= post.first_name %> 
-                        </strong>
-                        <small>
-                          @<%= post.username %>
-                        </small>
-                      <% } %>
-                    </p>
-                  </div>
-               </div>
-                <% if (currentUser && [1,2].includes(currentUser?.role_id)) { %>
-                  <div class="dropdown is-right is-hoverable">
-                    <div class="dropdown-trigger">
-
-                      <button class="button is-small aria-haspopup="true" aria-controls="dropdown-menu">
-                        <span class="icon is-small">⋮</span>
-                      </button>
+              <div class="card-content">
+                <div class="is-flex is-justify-content-space-between is-align-items-start mb-4">
+                  <div class="is-flex is-align-items-center">
+                    <div class="image is-32x32 mr-2">
+                      <img class="is-rounded" src="https://bulma.io/assets/images/placeholders/32x32.png" />
                     </div>
-                    <div class="dropdown-menu" role="menu">
-                      <div class="dropdown-content">
-                        <form action="/posts/<%= post.id %>" method="POST">
-                          <input type="hidden" name="id" value="<%= post.id %>">
-                          <input type="hidden" name="_method" value="DELETE">
-                          <button type="submit" class="dropdown-item has-text-danger is-flex is-align-items-center">
-                            <span class="icon is-small mr-2">
-                              <i class="fas fa-trash"></i>
-                            </span>
-                            <span>Delete</span>
-                          </button>
-                        </form>
+                    <div>
+                      <p class="subtitle is-6">
+                        <% if (!currentUser || currentUser && currentUser.role_id === 4) { %>
+                          <strong>
+                            Author
+                          </strong>
+                          <small>
+                            @anon
+                          </small>
+                        <% } else {%>
+                          <strong>
+                            <%= post.first_name %> 
+                          </strong>
+                          <small>
+                            @<%= post.username %>
+                          </small>
+                        <% } %>
+                      </p>
+                    </div>
+                </div>
+                  <% if (currentUser && [1,2].includes(currentUser?.role_id)) { %>
+                    <div class="dropdown is-right is-hoverable">
+                      <div class="dropdown-trigger">
+
+                        <button class="button is-small aria-haspopup="true" aria-controls="dropdown-menu">
+                          <span class="icon is-small">⋮</span>
+                        </button>
+                      </div>
+                      <div class="dropdown-menu" role="menu">
+                        <div class="dropdown-content">
+                          <form action="/posts/<%= post.id %>" method="POST">
+                            <input type="hidden" name="id" value="<%= post.id %>">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="dropdown-item has-text-danger is-flex is-align-items-center">
+                              <span class="icon is-small mr-2">
+                                <i class="fas fa-trash"></i>
+                              </span>
+                              <span>Delete</span>
+                            </button>
+                          </form>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                <% } %>
+                  <% } %>
+                </div>
+                <hr>
+                <p class="title is-4 mb-4"><%= post.title %></p>
+                <div class="content">
+                  <%= post.message %>
+                </div>
               </div>
-              <hr>
-              <p class="title is-4 mb-4"><%= post.title %></p>
-              <div class="content">
-                <%= post.message %>
-              </div>
-            </div>
 
+            </div>
           </div>
-        </div>
-      <% }) %>
-    <% } %>
+        <% }) %>
+      <% } %>
+    </div>
   </div>
-</div>
+</main>
 
 <% if (currentUser && [1, 2].includes(currentUser.role_id)) { %>
   <a href="/admin/users" class="admin-fab" title="Go to Admin Panel">

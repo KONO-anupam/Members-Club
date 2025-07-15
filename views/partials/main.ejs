@@ -1,21 +1,19 @@
-<main class="section main-content">
-  <% if (content.location === '/404') { %>
-    <%- include('../pages/404') %>
-  <% }else if (content.location === '/500') { %>
-    <%- include('../pages/500') %>
-  <% }else if (content.location === '/') { %>
-    <%- include('../pages/home') %>
-  <% } else if (content.location === '/signup') { %>
-    <%- include('../pages/signup') %>
-  <% } else if (content.location === '/login') {%>
-    <%- include('../pages/login') %>
-  <% } else if (content.location === '/membership'){%>
-    <%- include('../pages/membership') %>
-  <% } else if (content.location === '/posts/new') { %>
-    <%- include('../pages/newPost') %>
-  <% } else if (content.location === '/posts/id') { %> 
-    <%- include('../pages/singlePost') %>
-  <% } else if (content.location === '/admin/users') { %>
-    <%- include('../pages/manageUser') %>
-  <% } %>
-</main>
+<% if (content.location === '/404') { %>
+  <%- include('../pages/404') %>
+<% }else if (content.location === '/500') { %>
+  <%- include('../pages/500') %>
+<% }else if (content.location === '/deactivated') { %>
+  <%- include('../pages/userDeactivated') %>
+<% }else if (content.location === '/') { %>
+  <%- include('../pages/home') %>
+<% } else if (content.location === '/signup') { %>
+  <%- include('../pages/signup') %>
+<% } else if (content.location === '/login') {%>
+  <%- include('../pages/login') %>
+<% } else if (content.location === '/membership'){%>
+  <%- include('../pages/membership') %>
+<% } else if (content.location === '/posts/new') { %>
+  <%- include('../pages/newPost') %>
+<% } else if (content.location === '/admin/users') { %>
+  <%- include('../pages/manageUser') %>
+<% } %>

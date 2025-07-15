@@ -5,24 +5,28 @@ const { validatePostForm } = require('../utils/validation');
 const { validationResult } = require('express-validator');
 // const { nanoid } = require('nanoid');
 const isAdmin = require('../middlewares/isAdminMiddleware');
+const isUserDeactivated = require('../middlewares/isUserDeactivatedMiddleware');
 
-const getHomePage = async (req, res, next) => {
-  try {
-    const posts = await Post.findAll();
-    res.render('index', {
-      windowTitle: "Home | Members Club",
-      documentTitle: "Members Club",
-      content: {
-        location: '/',
-        data: {
-          posts: posts.sort((a, b) => b.created_at - a.created_at)
+const getHomePage = [
+  isUserDeactivated,
+  async (req, res, next) => {
+    try {
+      const posts = await Post.findAll();
+      res.render('index', {
+        windowTitle: "Home | Members Club",
+        documentTitle: "Members Club",
+        content: {
+          location: '/',
+          data: {
+            posts: posts.sort((a, b) => b.created_at - a.created_at)
+          }
         }
-      }
-    });
-  } catch (error) {
-    next(error);
+      });
+    } catch (error) {
+      next(error);
+    }
   }
-}
+];
 
 const redirectHomePage = (req, res, next) => {
   res.redirect('/');
@@ -30,6 +34,7 @@ const redirectHomePage = (req, res, next) => {
 
 const getPostPage = [
   isAuthenticated,
+  isUserDeactivated,
   (req, res, next) => {
     try {
       res.render('index', {
@@ -52,7 +57,7 @@ const postPostForm = [
   async (req, res, next) => {
     try {
       const { nanoid } = await import('nanoid');
-      const post ={ title, message } = req.body;
+      const post = { title, message } = req.body;
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         return res.render('index', {

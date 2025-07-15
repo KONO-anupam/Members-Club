@@ -1,92 +1,94 @@
-<div class="section is-flex is-justify-content-center is-align-items-center">
-  <div class="box p-5" style="min-width: 300px; width: 590px; max-width: 100%;">
+<main class="section main-content">
+  <div class="section is-flex is-justify-content-center is-align-items-center">
+    <div class="box p-5" style="min-width: 300px; width: 590px; max-width: 100%;">
 
-    <h1 class="title has-text-centered is-2">Sign Up</h1>
+      <h1 class="title has-text-centered is-2">Sign Up</h1>
 
-    <!-- Validation Errors -->
-    <%- include('../partials/errors') %>
-    <br>
-    <form action="/signup" method="POST">
-      <div class="field">
-        <label class="label" for="firstName">First Name</label>
-        <div class="control">
-          <input class="input" type="text" name="firstName" placeholder="Your first name" value="<%= content.data?.firstName || '' %>" required>
+      <!-- Validation Errors -->
+      <%- include('../partials/errors') %>
+      <br>
+      <form action="/signup" method="POST">
+        <div class="field">
+          <label class="label" for="firstName">First Name</label>
+          <div class="control">
+            <input class="input" type="text" name="firstName" placeholder="Your first name" value="<%= content.data?.firstName || '' %>" required>
+          </div>
         </div>
-      </div>
 
-      <div class="field">
-        <label class="label" for="lastName">Last Name</label>
-        <div class="control">
-          <input class="input" type="text" name="lastName" placeholder="Your last name" value="<%= content.data?.lastName || '' %>" required>
+        <div class="field">
+          <label class="label" for="lastName">Last Name</label>
+          <div class="control">
+            <input class="input" type="text" name="lastName" placeholder="Your last name" value="<%= content.data?.lastName || '' %>" required>
+          </div>
         </div>
-      </div>
 
-      <div class="field">
-        <label class="label" for="username">Username</label>
-        <div class="control has-icons-left">
-          <input class="input" type="text" name="username" placeholder="Choose a username" value="<%= content.data?.username || '' %>" required>
-          <span class="icon is-small is-left">
-            <i class="fas fa-user"></i>
-          </span>
-        </div>
-      </div>
-
-      <div class="field">
-        <label class="label" for="email">Email</label>
-        <div class="control has-icons-left has-icons-right">
-          <% if (content.data.isEmailUsed)  {%>
-            <input class="input is-danger" name="email" type="email" placeholder="Your email address" value="<%= content.data?.email || '' %>">
-          <% } else {  %>
-            <input class="input" name="email" type="email" placeholder="Your email address">
-          <% }  %>
-          <span class="icon is-small is-left">
-            <i class="fas fa-envelope"></i>
-          </span>
-          <% if (content.data.isEmailUsed)  {%>
-            <span class="icon is-small is-right">
-              <i class="fas fa-exclamation-triangle"></i>
+        <div class="field">
+          <label class="label" for="username">Username</label>
+          <div class="control has-icons-left">
+            <input class="input" type="text" name="username" placeholder="Choose a username" value="<%= content.data?.username || '' %>" required>
+            <span class="icon is-small is-left">
+              <i class="fas fa-user"></i>
             </span>
-          <% }  %>
+          </div>
         </div>
-        <% if (content.data.isEmailUsed)  {%>
-          <p class="help is-danger">This email is already in used.</p>
-        <% } %>
-      </div>
+
+        <div class="field">
+          <label class="label" for="email">Email</label>
+          <div class="control has-icons-left has-icons-right">
+            <% if (content.data.isEmailUsed)  {%>
+              <input class="input is-danger" name="email" type="email" placeholder="Your email address" value="<%= content.data?.email || '' %>">
+            <% } else {  %>
+              <input class="input" name="email" type="email" placeholder="Your email address">
+            <% }  %>
+            <span class="icon is-small is-left">
+              <i class="fas fa-envelope"></i>
+            </span>
+            <% if (content.data.isEmailUsed)  {%>
+              <span class="icon is-small is-right">
+                <i class="fas fa-exclamation-triangle"></i>
+              </span>
+            <% }  %>
+          </div>
+          <% if (content.data.isEmailUsed)  {%>
+            <p class="help is-danger">This email is already in used.</p>
+          <% } %>
+        </div>
 
 
-      <div class="field">
-        <label class="label" for="password">Password</label>
-        <p class="control has-icons-left">
-          <input class="input" name="password" type="password" placeholder="Password">
-          <span class="icon is-small is-left">
-            <i class="fas fa-lock"></i>
-          </span>
-        </p>
-      </div>
+        <div class="field">
+          <label class="label" for="password">Password</label>
+          <p class="control has-icons-left">
+            <input class="input" name="password" type="password" placeholder="Password">
+            <span class="icon is-small is-left">
+              <i class="fas fa-lock"></i>
+            </span>
+          </p>
+        </div>
 
-      <div class="field">
-        <label class="label" for="confirmPassword">Confirm Password</label>
-        <p class="control has-icons-left">
-          <input class="input" name="confirmPassword" type="password" placeholder="Confirm your password">
-          <span class="icon is-small is-left">
-            <i class="fas fa-lock"></i>
-          </span>
-        </p>
-      </div>
+        <div class="field">
+          <label class="label" for="confirmPassword">Confirm Password</label>
+          <p class="control has-icons-left">
+            <input class="input" name="confirmPassword" type="password" placeholder="Confirm your password">
+            <span class="icon is-small is-left">
+              <i class="fas fa-lock"></i>
+            </span>
+          </p>
+        </div>
 
 
-      <div class="buttons mt-4 is-flex is-flex-direction-column">
-        <button type="submit" class="button is-link is-fullwidth">Sign up</button>
-        <a href="/" class="button is-light is-fullwidth">Back to Home</a>
-      </div>
+        <div class="buttons mt-4 is-flex is-flex-direction-column">
+          <button type="submit" class="button is-link is-fullwidth">Sign up</button>
+          <a href="/" class="button is-light is-fullwidth">Back to Home</a>
+        </div>
 
-    </form>
+      </form>
 
-    <hr>
+      <hr>
 
-    <p class="has-text-centered">
-      Already have an account? <a href="/login">Log in here</a>.
-    </p>
+      <p class="has-text-centered">
+        Already have an account? <a href="/login">Log in here</a>.
+      </p>
 
+    </div>
   </div>
-</div>
+</main>

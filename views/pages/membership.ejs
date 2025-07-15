@@ -1,3 +1,4 @@
+<main class="section main-content is-flex is-justify-content-center is-align-items-center">
 <% if (locals.currentUser.role_id===4) { %>
   <div class="section is-flex is-justify-content-center is-align-items-center">
     <div class="box" style="min-width: 300px; width: 500px; max-width: 100%;">
@@ -45,6 +46,7 @@
     </div>
   </div>
 <% } %>
+</main>
 
 <% if (currentUser && [1, 2].includes(currentUser.role_id)) { %>
   <a href="/admin/users" class="admin-fab" title="Go to Admin Panel">

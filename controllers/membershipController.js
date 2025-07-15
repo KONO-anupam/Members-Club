@@ -2,11 +2,13 @@ const { validationResult } = require('express-validator');
 const User = require('../models/userModel');
 const { validateMembershipEntrance } = require('../utils/validation');
 const isAuthenticated = require('../middlewares/isAuthenticatedMiddleware');
+const isUserDeactivated = require('../middlewares/isUserDeactivatedMiddleware');
 require('dotenv').config();
 
 
 const getMembershipPage = [
   isAuthenticated,
+  isUserDeactivated,
   (req, res) => {
     return res.render('index', {
       windowTitle: 'Membership | Members Club',
