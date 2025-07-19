@@ -29,7 +29,7 @@ const postSignupForm = [
     try {
       const { nanoid } = await import('nanoid');
       const { isEmailUsed } = req;
-      const user = { firstName, lastName, username, email, password, confirmPassword } = req.body;
+      const user = { firstName, lastName, username, email, password, confirmPassword, admin } = req.body;
       const errors = validationResult(req);
       if (!errors.isEmpty() || isEmailUsed) {
         return res.status(400).render('index', {
@@ -55,6 +55,7 @@ const postSignupForm = [
         role_id: 4, /* 1 = superadmin, 2 = admin, 3 = member, 4 = guest */
         ...user,
         hashedPassword,
+        admin: admin === 'true', // Convert string to boolean
         deactivated: false
       };
       await User.create(newUser);

@@ -12,6 +12,7 @@ const findAll = async () => {
       CONCAT(u.first_name, ' ', u.last_name) as full_name, 
       u.username,
       u.email,
+      u.admin,
       (SELECT COUNT(*) FROM posts as p WHERE p.user_id = u.id) as post_count,
       u.deactivated
     FROM 
@@ -58,12 +59,12 @@ const create = async (data) => {
 
   const query = `
     INSERT INTO
-      users (id, role_id, first_name, last_name, username, email, password, deactivated)
+      users (id, role_id, first_name, last_name, username, email, password, admin, deactivated)
     VALUES 
-      ($1, $2, $3, $4, $5, $6, $7, $8);
+      ($1, $2, $3, $4, $5, $6, $7, $8, $9);
   `;
-  const { id, role_id, firstName, lastName, username, email, hashedPassword, deactivated } = data;
-  await db.query(query, [id, role_id, firstName, lastName, username, email, hashedPassword, deactivated]);
+  const { id, role_id, firstName, lastName, username, email, hashedPassword, admin, deactivated } = data;
+  await db.query(query, [id, role_id, firstName, lastName, username, email, hashedPassword, admin || false, deactivated]);
 };
 /*
 * @DESC Update a user by ID

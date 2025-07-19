@@ -3,5 +3,7 @@
   <p><%= content.data.post.first_name %></p>
   <p>@ <%= content.data.post.username %></p>
   <p><%= content.data.post.message %></p>
-  <button data-id="<%= content.data.post.id %>">Delete</button>
+  <% if (currentUser && currentUser.admin) { %>
+    <button data-id="<%= content.data.post.id %>">Delete</button>
+  <% } %>
 </div>
